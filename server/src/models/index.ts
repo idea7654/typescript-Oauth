@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+const MONGO_URI = process.env.MONGO_URI;
 module.exports = () => {
   function connect(): void {
     let connection = mongoose.connect(
-      "mongodb+srv://root:osm980811@cluster0.jb6sv.mongodb.net/User?retryWrites=true&w=majority",
+      MONGO_URI,
       {
         dbName: "user",
       },

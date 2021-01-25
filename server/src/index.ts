@@ -2,7 +2,7 @@ import express from "express";
 import authRouter from "./routes/auth";
 import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
-
+require("dotenv").config();
 const db = require("./models/index");
 const app: express.Application = express();
 const port: number = 5000;
