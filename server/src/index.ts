@@ -35,9 +35,8 @@ app.use("/auth", authRouter);
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        "265783923580-f7ba0cf9m9ika3k838h3gsphtgv9d4jn.apps.googleusercontent.com",
-      clientSecret: "xYgKN6iXbd796VGUO_hgoARx",
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
       callbackURL: "http://localhost:5000/auth/google/callback",
       proxy: true,
     },
