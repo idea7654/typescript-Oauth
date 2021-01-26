@@ -1,30 +1,35 @@
 import express from "express";
 import passport from "passport";
-const router: express.Router = express.Router();
+const router: any = express.Router();
 
 router.get("/", (req: express.Request, res: express.Response) => {
   res.status(200).json("안녕하세요!");
 });
 
 router.get(
-  "/login",
-  passport.authenticate("local"),
+  "/google",
+  passport.authenticate("google", { scope: ["profile"] }),
   (req: express.Request, res: express.Response) => {
-    passport.authenticate("google", { scope: ["profile"] });
+    console.log(req);
   }
 );
 
 router.get(
-  "/login/callback",
+  "/google/callback",
   passport.authenticate(
     "google",
     {
-      failureRedirect: "/login",
+      successRedirect: "http://localhost:3000",
+      failureRedirect: "/auth/google/failed",
     },
     (req: express.Request, res: express.Response) => {
-      res.redirect("/");
+      console.log(req);
     }
   )
 );
+
+router.get("/google/failed", (req: express.Request, res: express.Response) => {
+  res.redirect("http://127.0.0.1:3000");
+});
 
 export default router;

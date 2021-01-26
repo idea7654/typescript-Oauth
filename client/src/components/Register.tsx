@@ -22,11 +22,9 @@ const Register: React.FC = () => {
       username: Username,
       password: Password,
     };
-    axios
-      .post("http://localhost:5000/auth/register", body)
-      .then((res: JsonWebKey) => {
-        console.log(res);
-      });
+    axios.post("http://localhost:5000/auth/register", body).then((res: any) => {
+      console.log(res);
+    });
   }, []);
 
   return (
