@@ -1,6 +1,14 @@
 import mongoose from "mongoose";
+
+interface IUser extends mongoose.Document {
+  email: string | undefined;
+  name: string | undefined;
+}
+
 const userSchema: mongoose.Schema = new mongoose.Schema({
-  googleId: String,
+  email: String,
+  name: String,
 });
 
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.model<IUser>("User", userSchema);
+export default User;

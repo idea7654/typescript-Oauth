@@ -1,14 +1,13 @@
 import express from "express";
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
+import { Document } from "mongoose";
+import bodyParser from "body-parser";
 const cors = require("cors");
 require("dotenv").config();
 const db = require("./models/index");
 const app: any = express();
 const port: number = 5000;
 const session = require("express-session");
-const User = require("./models/User");
-//const authRouter = require("./routes/auth");
+import User from "./models/user";
 import authRouter from "./routes/auth";
 
 db();
@@ -21,33 +20,8 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-passport.serializeUser(function (User: any, done: any) {
-  done(null, User);
-});
-
-passport.deserializeUser(function (obj: any, done: any) {
-  done(null, obj);
-});
+app.use(bodyParser.json());
 
 app.use("/auth", authRouter);
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/auth/google/callback",
-      proxy: true,
-    },
-    (accessToken: string, refreshToken: string, profile: any, cb: any) => {
-      // User.findOrCreate({ googleId: profile.id }, (err: any, user: any) => {
-      //   console.log(profile);
-      //   return cb(err, user);
-      // });
-      console.log(profile);
-    }
-  )
-);
 
 app.listen(port);

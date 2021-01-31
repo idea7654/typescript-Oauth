@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from "./user";
 const MONGO_URI = process.env.MONGO_URI;
 module.exports = () => {
   function connect(): void {
@@ -20,5 +21,5 @@ module.exports = () => {
 
   mongoose.connection.on("disconnected", connect);
 
-  require("./user");
+  User;
 };
